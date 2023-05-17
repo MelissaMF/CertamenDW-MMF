@@ -1,0 +1,102 @@
+﻿@model List<CertamenDW.Models.Ticket>
+<center><h3><b>¡Hola!</b> ¿Qué necesitas hacer hoy?</h3></center>
+<div class="row">
+    <div class="col-8">
+        <div class="card mt-3 p-3" style="margin:auto">
+            <h3>Tickets</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <td>N° Ticket</td>
+                    <td>Asunto</td>
+                    <td>Descripción</td>
+                    <td>Fecha Creación</td>
+                    <td>Estado</td>
+                </tr>
+                <tbody>
+                    @foreach (var ticket in Model)
+                    {
+                        if(ticket.isOpen == true)
+                        {
+                            TimeSpan diferencia = DateTime.Now.Subtract(ticket.CreatedDate);
+                            int dias = diferencia.Days;
+                            if (dias > 1)
+                            {
+                                <tr>
+                                    <td class="table-danger">
+                                        @ticket.TicketNumber
+                                    </td>
+                                    <td class="table-danger">
+                                        @ticket.Subject
+                                    </td>
+                                    <td class="table-danger">
+                                        @ticket.Description
+                                    </td>
+                                    <td class="table-danger">
+                                        @ticket.CreatedDate.ToString().Substring(0,10)
+                                    </td>
+                                    <td class="table-danger">
+                                        @if (ticket.isOpen)
+                                        {
+                                            @using (Html.BeginForm("Resuelto", "Ticket", FormMethod.Post))
+                                            {   
+                                                @Html.Hidden("id", ticket.TicketNumber)
+                                                <button type="submit" class="btn" style="float:right; background-color: #900C3F; color:white">Listo</button>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        @ticket.TicketNumber
+                                    </td>
+                                    <td>
+                                        @ticket.Subject
+                                    </td>
+                                    <td>
+                                        @ticket.Description
+                                    </td>
+                                    <td>
+                                        @ticket.CreatedDate.ToString().Substring(0,10)
+                                    </td>
+                                    <td>
+                                        @if (ticket.isOpen)
+                                        {
+                                            @using (Html.BeginForm("Resuelto", "Ticket", FormMethod.Post))
+                                            {
+                                                @Html.Hidden("id", ticket.TicketNumber)
+                                                <button type="submit" class="btn" style="float:right; background-color: #900C3F; color:white">Listo</button>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card-group">
+            <div class="card border-0 col-2 m-3 p-2">
+                <img class="card-img-top" height=200 src="https://i.imgflip.com/5686qx.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Agregar Ticket</h5>
+                    <p class="card-text">Ingrese un nuevo requerimiento a la lista</p>
+                    <a href="ticket/nuevo" class="btn" style="float:right; background-color: #900C3F; color:white">Agregar</a>
+                </div>
+            </div>
+            <div class="card border-0 col-2 m-3 p-2">
+                <img class="card-img-top" height=200 src="https://i.pinimg.com/originals/ef/38/45/ef3845ab4ef34d24f3634b4a13a3346c.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Tickets Resuletos</h5>
+                    <p class="card-text">Revise los tickets que ya se han resuelto.</p>
+                    <a href="ticket/resuelto" class="btn" style="float:right; background-color: #900C3F; color:white">Ver Resueltos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

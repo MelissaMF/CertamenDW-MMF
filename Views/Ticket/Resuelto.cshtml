@@ -1,0 +1,37 @@
+﻿@model List<CertamenDW.Models.Ticket>
+    <div class="col-8" style="margin:auto">
+        <div class="card mt-3 p-3" style="margin:auto">
+            <h3>Tickets Resueltos</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <td>N° Ticket</td>
+                    <td>Asunto</td>
+                    <td>Descripción</td>
+                    <td>Fecha Creación</td>
+                    <td>Fecha Resolución</td>
+                </tr>
+                <tbody>
+                    @foreach (var ticket in Model)
+                    {
+                            <tr>
+                                <td>
+                                    @ticket.TicketNumber
+                                </td>
+                                <td>
+                                    @ticket.Subject
+                                </td>
+                                <td>
+                                    @ticket.Description
+                                </td>
+                                <td>
+                                    @ticket.CreatedDate.ToString().Substring(0,10)
+                                </td>
+                                <td>
+                                    @ticket.ResolvedDate.ToString().Substring(0,10)
+                                </td>
+                            </tr>                       
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

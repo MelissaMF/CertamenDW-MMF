@@ -1,0 +1,25 @@
+﻿@model CertamenDW.Models.Ticket
+<div class="card col-6" style="margin:auto">
+    <div class="card-header">
+        Tickets
+    </div>
+    <div class="card-body">
+        <h3 class="card-title">¿Nuevo Ticket?</h3>
+        @using (Html.BeginForm("Save", "Ticket", FormMethod.Post))
+        {  
+            <div class="mb-3">
+                @Html.LabelFor(Model => Model.Subject)
+                @Html.TextBoxFor(Model => Model.Subject, new {@class="form-control"})
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(Model => Model.Description)
+                @Html.TextBoxFor(Model => Model.Description, new {@class="form-control", type="text"})
+            </div>
+ 
+            <div>
+                @Html.ValidationSummary()
+            </div>
+            <button type="submit" class="btn" style="float:right; background-color: #900C3F; color:white">Enviar</button>
+        }
+    </div>
+</div>
